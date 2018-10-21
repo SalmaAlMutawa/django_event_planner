@@ -1,5 +1,9 @@
 from django.urls import path
-from .views import Login, Logout, Signup, home
+from events import views
+from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
 	path('', home, name='home'),
@@ -7,9 +11,7 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'),
     path('logout/', Logout.as_view(), name='logout'),
 
-    path('events/list/', Logout.as_view(), name='events-list'),
-
-    # path('event/create/', Logout.as_view(), name='events-list'),
+    path('events/', views.event_list, name='events-list'),
+	path('create/', views.create_event, name='create-event'),
+    path('detail/<event_slug>', views.event_detail, name='event-detail'),
     # path('events/list/', Logout.as_view(), name='dashboard'),
-    # path('events/list/', Logout.as_view(), name='event-detail'),
-]

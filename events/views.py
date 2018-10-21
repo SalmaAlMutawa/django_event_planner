@@ -64,13 +64,17 @@ class Logout(View):
         return redirect("login")
 
 
-# def dashboard (request):
-#     if request.user.is_anonymous:
-#         return redirect ('login')
+def dashboard (request):
+    if request.user.is_anonymous:
+        return redirect ('login')
+    user = request.user
+    events = Event.objects.all()
+    my_events = events.filter(organizer__username = user)
 
-#     context = {
-#         "event" : 
-#     }
+    context = {
+        "my_events" : my_events 
+    }
+    return render (request, 'dashboard.html', context)
 
 def create_event (request):
     # if request.user.is_anonymous:

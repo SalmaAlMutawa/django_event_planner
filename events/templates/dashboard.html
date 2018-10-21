@@ -1,0 +1,21 @@
+{%extends base.html%}
+
+{%block title%}My Dashboard{%endblock title%}
+
+{%block content%}
+	
+<div class="row">
+	{% for event in my_events %}
+		<div class="col-md-4">
+			<div class="card">
+  			<div class="card-header">Organized by you</div>
+  				<div class="card-body">
+   					<h5 class="card-title">{{event.name}}</h5>
+   					<h6 class="card-title">Event Location: {{event.location}} </h6>
+   					<h6 class="card-title">Date: {{event.date}} </h6>
+   					<h6 class="card-title">Seats Available: {{event.seats}} </h6>
+    		<a href="#" class="btn btn-primary">Edit</a>
+        <a href="#" class="btn btn-primary">Delete</a>
+ 		 </div>
+	</div>
+	{% endfor %}
