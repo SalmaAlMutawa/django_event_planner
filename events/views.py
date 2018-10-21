@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
-from .forms import UserSignup, UserLogin
+from .forms import UserSignup, UserLogin, EventForm
+from django.contrib import messages
+from django.db.models import Q
+from django.http import JsonResponse
+
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home_pg.html')
 
 class Signup(View):
     form_class = UserSignup
@@ -58,4 +62,52 @@ class Logout(View):
         logout(request)
         messages.success(request, "You have successfully logged out.")
         return redirect("login")
+
+
+# def dashboard (request):
+#     if request.user.is_anonymous:
+#         return redirect ('login')
+
+#     context = {
+#         "event" : 
+#     }
+
+def create_event (request):
+    # if request.user.is_anonymous:
+    #     return redirect ('login')
+    form = EventForm()
+    if request.method == "POST":
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            event = form.save(commit = False)
+            event.organizer = request.user
+            event.save()
+            return redirect ('dashboard')
+    context = {
+        "form" : form,
+    }
+
+    return render (request, 'event-create.html', context)
+
+def event_list (request):
+    events = Event.objects.all()
+    query = request.GET.get('q')
+    if query:
+        events = events.filter(
+            Q (name__icontains = query) |
+            Q (description__icontains = query) |
+            Q (organizer__username__icontains = query)|
+            Q (organizer__first_name__icontains = query)|
+            Q (organizer__last_name__icontains = query)
+            ).distinct()
+    context = {
+        "events" : events,
+    }
+    return render (request, 'events_list', context)
+
+
+
+
+
+
 

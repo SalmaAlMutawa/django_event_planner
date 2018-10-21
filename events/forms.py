@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import Event
 
 class UserSignup(forms.ModelForm):
     class Meta:
@@ -15,3 +16,8 @@ class UserLogin(forms.Form):
     username = forms.CharField(required=True)
     password = forms.CharField(required=True, widget=forms.PasswordInput())
 
+
+class EventForm(forms.Form):
+	class Meta:
+		model = Event
+		exclude = ['organizer',]

@@ -1,0 +1,35 @@
+{%extends base.html%}
+
+{%block title%}List of Events{%endblock title%}
+
+{%block content%}
+		<form action = "{% url 'event-list'%}" class="form-inline my-2 my-lg-0" method = "GET">
+			<div>
+        		<input class="form-control mr-sm-2" type="text" placeholder="Search Events" value = "{{request.GET.q}}" aria-label="Search" name = 'q'>
+        		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        	<div>
+		</form>
+
+<div class="row">
+	{% for event in events %}
+		<div class="col-md-4">
+			<div class="card">
+  			<div class="card-header">Upcoming 
+  			Events</div>
+  				<div class="card-body">
+   					<h5 class="card-title">{{event.name}}</h5>
+   					<h6 class="card-title">Event Organizer: {{event.organizer}} </h6>
+   					<h6 class="card-title">Date: {{event.date}} </h6>
+   					<h6 class="card-title">Seats Available: {{event.seats}} </h6>
+    		<a href="event-detail" class="btn btn-primary">Read More</a>
+ 		 </div>
+	</div>
+	{% endfor %}
+	
+
+
+
+
+
+
+{%endblock content%}
