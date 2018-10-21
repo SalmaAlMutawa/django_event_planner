@@ -109,14 +109,38 @@ def event_list (request):
     }
     return render (request, 'events_list.html', context)
 
-def event_detail (request, event_id):
-    event = Event.objects.get(id=event_id)
+def event_detail (request, event_slug):
+    event = Event.objects.get(slug=event_slug)
 
     context = {
         "event" : event,
     }
 
     return render (request, 'event_detail.html', context)
+
+
+def event_edit (request, event_slug):
+    event = Event.objects.get(slug=event_slug)
+    form = EventForm(instance=event)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Successfully edited!")
+            return redirect ('dashboard')
+        print (form.errors)
+    context = {
+        'form' : form,
+        'event' : event,
+        }
+    return render (request, 'edit_event.html', context)
+
+def event_delete(request, event_slug):
+    Event.objects.get(slug=event_slug).delete()
+    messages.success(request, "Successfully Deleted!")
+    return redirect ('dashboard')
+
+
 
 
 

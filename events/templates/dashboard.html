@@ -9,16 +9,19 @@
 		<div class="col-md-4">
 			<div class="card">
   			<div class="card-header">Organized by you</div>
-  				<div class="card-body">
-   					<h5 class="card-title">{{event.name}}</h5>
-   					<h6 class="card-title">Event Location: {{event.location}} </h6>
-   					<h6 class="card-title">Date: {{event.date}} </h6>
-   					<h6 class="card-title">Seats Available: {{event.seats}} </h6>
-        <a href="#" class="btn btn-outline-info">View</a>
-    		<a href="#" class="btn btn-outline-success">Edit</a>
-        <a href="#" class="btn btn-outline-danger">Delete</a>
- 		 </div>
-	</div>
+				<div class="card-body">
+ 					<h5 class="card-title">{{event.name}}</h5>
+ 					<h6 class="card-title">Event Location: {{event.location}} </h6>
+ 					<h6 class="card-title">Date: {{event.date}} </h6>
+ 					<h6 class="card-title">Seats Available: {{event.seats}} </h6>
+         	<a href="{% url 'event-detail' event.slug %}" class="btn btn-outline-info">View</a>
+      		<a href="{% url 'event-edit' event.slug %}" class="btn btn-outline-success">Edit</a>
+         	<a href="{% url 'event-delete' event.slug %}" class="btn btn-outline-danger">Delete</a>
+		    </div>
+	   </div>
+    </div>
 	{% endfor %}
-
+ </div>
+ <br>
+ <a href="{% url 'create-event' %}" class="btn btn-lg btn-outline-secondary">Create Event</a>
 {%endblock%}
