@@ -1,8 +1,8 @@
-{%extends base.html%}
+{%extends 'base.html'%}
 
 {%block title%}My Dashboard{%endblock title%}
 
-{%block content%}
+{% block content %}
 	
 <div class="row">
 	{% for event in my_events %}
@@ -14,8 +14,11 @@
    					<h6 class="card-title">Event Location: {{event.location}} </h6>
    					<h6 class="card-title">Date: {{event.date}} </h6>
    					<h6 class="card-title">Seats Available: {{event.seats}} </h6>
-    		<a href="#" class="btn btn-primary">Edit</a>
-        <a href="#" class="btn btn-primary">Delete</a>
+        <a href="#" class="btn btn-outline-info">View</a>
+    		<a href="#" class="btn btn-outline-success">Edit</a>
+        <a href="#" class="btn btn-outline-danger">Delete</a>
  		 </div>
 	</div>
 	{% endfor %}
+
+{%endblock%}

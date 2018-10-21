@@ -5,6 +5,7 @@ from .forms import UserSignup, UserLogin, EventForm
 from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse
+from .models import Event
 
 
 def home(request):
@@ -68,8 +69,7 @@ def dashboard (request):
     if request.user.is_anonymous:
         return redirect ('login')
     user = request.user
-    events = Event.objects.all()
-    my_events = events.filter(organizer__username = user)
+    my_events = Event.objects.filter(organizer=user)
 
     context = {
         "my_events" : my_events 
@@ -107,7 +107,18 @@ def event_list (request):
     context = {
         "events" : events,
     }
-    return render (request, 'events_list', context)
+    return render (request, 'events_list.html', context)
+
+def event_detail (request, event_id):
+    event = Event.objects.get(id=event_id)
+
+    context = {
+        "event" : event,
+    }
+
+    return render (request, 'event_detail.html', context)
+
+
 
 
 

@@ -17,7 +17,12 @@ class UserLogin(forms.Form):
     password = forms.CharField(required=True, widget=forms.PasswordInput())
 
 
-class EventForm(forms.Form):
+class EventForm(forms.ModelForm):
 	class Meta:
 		model = Event
-		exclude = ['organizer',]
+		exclude = ['organizer', 'slug', ]
+
+		widgets = {
+		'date': forms.DateInput(attrs={'type':'date'}),
+		'time':forms.TimeInput(attrs={'type':'time'}),
+		}

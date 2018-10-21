@@ -6,12 +6,13 @@ from django.conf import settings
 
 
 urlpatterns = [
-	path('', home, name='home'),
-    path('signup/', Signup.as_view(), name='signup'),
-    path('login/', Login.as_view(), name='login'),
-    path('logout/', Logout.as_view(), name='logout'),
+	path('',views.home, name='home'),
+    path('signup/', views.Signup.as_view(), name='signup'),
+    path('login/', views.Login.as_view(), name='login'),
+    path('logout/', views.Logout.as_view(), name='logout'),
 
     path('events/', views.event_list, name='events-list'),
 	path('create/', views.create_event, name='create-event'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('detail/<event_slug>', views.event_detail, name='event-detail'),
-    # path('events/list/', Logout.as_view(), name='dashboard'),
+]

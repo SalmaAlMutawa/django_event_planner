@@ -19,7 +19,10 @@
           min-height: 100%;
         }
         body {
-          margin-bottom: 60px;
+        margin-top: 100px;
+        margin-bottom: 100px;
+/*        margin-left:100px;
+        margin-right:100px;*/
         }
         .jumbotron{
             background-color: black;
@@ -42,15 +45,20 @@
     {% include "navbar.html" %}
     {% include "messages.html" %}
 
+    <div class="container">
     {% block content %}
 
     {% endblock %}
+    </div>
 
+    {%comment%}
     <footer class="footer py-5 bg-black">
       <div class="container">
         <p class="m-0 text-center text-white small">Copyright &copy; Django Event Planner 2018</p>
       </div>
     </footer>
+
+    {%endcomment%}
 
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
