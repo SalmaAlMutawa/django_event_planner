@@ -5,7 +5,7 @@ from .forms import UserSignup, UserLogin, EventForm, BookForm
 from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse
-from .models import Event
+from .models import Event, Book
 
 
 def home(request):
@@ -149,24 +149,25 @@ def event_delete(request, event_slug):
 
 def event_book(request, event_slug):
     event = Event.objects.get(slug=event_slug)
+   
     form = BookForm()
     if request.method == "POST":
-        form = BookForm(request.POST, request.FILES)
+        form = BookForm(request.POST)
         if form.is_valid():
-            if form.tickets() <= event.seats_left():
-                booked_event = form.save(commit = False)
-                booked_event.event = event
-                booked_event.user = request.user
-                booked_event.save()
+            book = form.save(commit = False)
+            print(book.tickets)
+            print(event.seats_left())
+            if  (book.tickets <= event.seats_left()):
+                book.event = event
+                book.user = request.user
+                book.save()
                 messages.success(request, "Successfully Booked an Event!")
                 return redirect ('events-list')
-            messages.success(request, "Not enough available seats, please try again.")
-            return redirect ('event-book')
+            messages.success(request, "Not enough available seats, please try again.")           
     context = {
         "form" : form,
         "event" : event,
     }
-
     return render (request, 'book_event.html', context)
 
 

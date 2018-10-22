@@ -13,7 +13,7 @@
  					<h5 class="card-title">{{event.name}}</h5>
  					<h6 class="card-title">Event Location: {{event.location}} </h6>
  					<h6 class="card-title">Date: {{event.date}} </h6>
- 					<h6 class="card-title">Seats Available: {{event.seats}} </h6>
+ 					<h6 class="card-title">Seats Available: {{event.seats_left}} </h6>
          	<a href="{% url 'event-detail' event.slug %}" class="btn btn-outline-info">View</a>
       		<a href="{% url 'event-edit' event.slug %}" class="btn btn-outline-success">Edit</a>
          	<a href="{% url 'event-delete' event.slug %}" class="btn btn-outline-danger">Delete</a>

@@ -15,6 +15,7 @@
 	    <p class="card-text">Time: {{event.time}}</p>
 	    <p class="card-text">Organized by: {{event.organizer.first_name}} {{event.organizer.last_name}}</p>
 
+
 	   
 
 	    {% if request.user == organizer %}
@@ -46,14 +47,20 @@
 			</table>
 
         {% else %}
-         	 <a href="{% url 'event-book' event.slug %}" class="btn btn-outline-info">Book now!</a>
 
+        	{% if event.seats_left %}
+        		<a href="{% url 'event-book' event.slug %}" class="btn btn-outline-info">Book now!</a>
+        		{% else %}
+        			<a href="#" class="btn btn-lg btn-outline-danger">Full Event</a>
+
+        	{% endif %}
 
 	    {% endif %}
 
 	  </div>
 	  <div class="card-footer text-muted">
-	    {{event.seats}} Left
+	    Available Seats: {% if not event.seats_left %} 0 {% else %}{{event.seats_left}} 
+	    {% endif %}
 	  </div>
 	</div>
 

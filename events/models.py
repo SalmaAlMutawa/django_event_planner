@@ -12,7 +12,7 @@ class Event(models.Model):
 	location = models.CharField(max_length = 200)
 	date = models.DateField()
 	time = models.TimeField()
-	seats = models.IntegerField()
+	seats = models.IntegerField(default=1)
 	slug = models.SlugField(blank=True)
 
 	def __str__(self):
@@ -20,12 +20,19 @@ class Event(models.Model):
 
 	def seats_left(self):
 		bookings = Book.objects.filter(event=self)
-		for book in booking:
-			seats_left = seats - bookings
-		return seats_left
+		remaining = self.seats
+		for book in bookings:
+			remaining -=book.tickets
+			if remaining == 0:
+				return False
+		return remaining
 
 
-	# event_ibj.seats_left
+class Book(models.Model):
+	user = models.ForeignKey(User, default = 1, on_delete = models.CASCADE)
+	event = models.ForeignKey(Event, default = 1, on_delete = models.CASCADE)
+	tickets = models.IntegerField()
+
 
 def create_slug(instance, new_slug=None):
 	slug = slugify (instance.name)
@@ -49,12 +56,4 @@ def create_slug(instance, new_slug=None):
 def generate_slug(instance, *args, **kwargs):
 	if not instance.slug:
 		instance.slug=create_slug(instance)
-
-class Book(models.Model):
-	user = models.ForeignKey(User, default = 1, on_delete = models.CASCADE)
-	event = models.ForeignKey(Event, default = 1, on_delete = models.CASCADE)
-	tickets = models.IntegerField()
-
-
-
 
