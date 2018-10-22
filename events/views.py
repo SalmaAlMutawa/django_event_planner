@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
-from .forms import UserSignup, UserLogin, EventForm
+from .forms import UserSignup, UserLogin, EventForm, BookForm
 from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse
@@ -77,8 +77,8 @@ def dashboard (request):
     return render (request, 'dashboard.html', context)
 
 def create_event (request):
-    # if request.user.is_anonymous:
-    #     return redirect ('login')
+    if request.user.is_anonymous:
+        return redirect ('login')
     form = EventForm()
     if request.method == "POST":
         form = EventForm(request.POST, request.FILES)
@@ -114,11 +114,14 @@ def event_detail (request, event_slug):
         return redirect ('login')
 
     event = Event.objects.get(slug=event_slug)
+    organizer = event.organizer
+    bookers = event.book_set.all()
 
     context = {
         "event" : event,
+        "organizer" : organizer,
+        "bookers" : bookers,
     }
-
     return render (request, 'event_detail.html', context)
 
 
@@ -142,6 +145,30 @@ def event_delete(request, event_slug):
     Event.objects.get(slug=event_slug).delete()
     messages.success(request, "Successfully Deleted!")
     return redirect ('dashboard')
+
+
+def event_book(request, event_slug):
+    event = Event.objects.get(slug=event_slug)
+    form = BookForm()
+    if request.method == "POST":
+        form = BookForm(request.POST, request.FILES)
+        if form.is_valid():
+            if form.tickets() <= event.seats_left():
+                booked_event = form.save(commit = False)
+                booked_event.event = event
+                booked_event.user = request.user
+                booked_event.save()
+                messages.success(request, "Successfully Booked an Event!")
+                return redirect ('events-list')
+            messages.success(request, "Not enough available seats, please try again.")
+            return redirect ('event-book')
+    context = {
+        "form" : form,
+        "event" : event,
+    }
+
+    return render (request, 'book_event.html', context)
+
 
 
 

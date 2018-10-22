@@ -14,7 +14,43 @@
 	    <p class="card-text">Date: {{event.date}}</p>
 	    <p class="card-text">Time: {{event.time}}</p>
 	    <p class="card-text">Organized by: {{event.organizer.first_name}} {{event.organizer.last_name}}</p>
-	    <a href="#" class="btn btn-outline-info">Book now!</a>
+
+	   
+
+	    {% if request.user == organizer %}
+
+      		<a href="{% url 'event-edit' event.slug %}" class="btn btn-outline-success">Edit</a>
+         	<a href="{% url 'event-delete' event.slug %}" class="btn btn-outline-danger">Delete</a>
+
+
+
+         	<table class="table table-hover">
+				<thead>
+				    <tr>
+				      <th scope="col">First Name</th>
+				      <th scope="col">Last Name</th>
+				      <th scope="col">Number of Tickets</th>
+				    </tr>
+				</thead>
+
+				<tbody>
+				    	{% for booker in bookers %}
+				    		<tr>
+							    <td>{{booker.user.first_name}}</td>
+							    <td>{{booker.user.last_name}}</td>
+							    <td>{{booker.tickets}}</td>
+				    		</tr>
+				    		
+				    	{% endfor %}  
+				 </tbody>
+			</table>
+
+        {% else %}
+         	 <a href="{% url 'event-book' event.slug %}" class="btn btn-outline-info">Book now!</a>
+
+
+	    {% endif %}
+
 	  </div>
 	  <div class="card-footer text-muted">
 	    {{event.seats}} Left

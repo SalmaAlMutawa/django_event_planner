@@ -5,6 +5,6 @@
 	<form action="{% url 'create-event' %}" method="POST">
 		{% csrf_token %}
 		{{form|crispy}}
-		<input type="submit" value="Create Event" class="btn" style="background-color: #e3f2fd; color: black;">
+		<input type="submit" value="Create Event" class="btn btn-lg btn-outline-info">
 	</form>
 {% endblock content %}

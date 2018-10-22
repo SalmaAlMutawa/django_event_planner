@@ -18,28 +18,43 @@ class Event(models.Model):
 	def __str__(self):
 		return self.name
 
+	def seats_left(self):
+		bookings = Book.objects.filter(event=self)
+		for book in booking:
+			seats_left = seats - bookings
+		return seats_left
+
+
+	# event_ibj.seats_left
+
 def create_slug(instance, new_slug=None):
-    slug = slugify (instance.name)
-    if new_slug is not None:
-        slug = new_slug
-    qs = Event.objects.filter(slug=slug)
-    if qs.exists():
-        if "-" in slug:
-            slug_list = slug.split("-")
-            new_slug = "%s-%s"%(slug_list[0],int(slug_list[1])+1)
-        else:
-            new_slug = "%s-1"%(slug)
-        return create_slug(instance, new_slug=new_slug)
-    return slug
+	slug = slugify (instance.name)
+	if new_slug is not None:
+		slug = new_slug
+	qs = Event.objects.filter(slug=slug)
+	if qs.exists():
+		try:
+			int (slug[-1])
+			if "-" in slug:
+				slug_list = slug.split("-")
+				new_slug = "%s-%s"%(slug_list[0],int(slug_list[1])+1)
+			else:
+				new_slug = "%s-1"%(slug)
+		except:
+			new_slug = "%s-1"%(slug)
+		return create_slug(instance, new_slug=new_slug)
+	return slug
 
 @receiver(pre_save, sender=Event)
 def generate_slug(instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug=create_slug(instance)
+	if not instance.slug:
+		instance.slug=create_slug(instance)
 
 class Book(models.Model):
-    user = models.ForeignKey(User, default = 1, on_delete = models.CASCADE)
-    event = models.ForeignKey(Event, default = 1, on_delete = models.CASCADE)
-    tickets = models.IntegerField()
+	user = models.ForeignKey(User, default = 1, on_delete = models.CASCADE)
+	event = models.ForeignKey(Event, default = 1, on_delete = models.CASCADE)
+	tickets = models.IntegerField()
+
+
 
 

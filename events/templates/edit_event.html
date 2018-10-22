@@ -5,6 +5,6 @@
 	<form action="{% url 'event-edit' event.slug %}" method="POST">
 		{% csrf_token %}
 		{{form|crispy}}
-		<input type="submit" value="Save" class="btn" style="background-color: #e3f2fd; color: black;">
+		<input type="submit" value="Save Changes" class="btn btn-outline-success">
 	</form>
 {% endblock content %}
