@@ -5,11 +5,6 @@ from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 
 
-# class Location (models.Model):
-# 	city = models.CharField(max_length = 200)
-# 	street = models.CharField(max_length = 200)
-# 	building = models.CharField(max_length = 200)
-
 class Event(models.Model):
 	name = models.CharField(max_length = 200)
 	description = models.TextField()
@@ -42,5 +37,9 @@ def generate_slug(instance, *args, **kwargs):
     if not instance.slug:
         instance.slug=create_slug(instance)
 
+class Book(models.Model):
+    user = models.ForeignKey(User, default = 1, on_delete = models.CASCADE)
+    event = models.ForeignKey(Event, default = 1, on_delete = models.CASCADE)
+    tickets = models.IntegerField()
 
 

@@ -27,7 +27,7 @@ class Signup(View):
             user.save()
             messages.success(request, "You have successfully signed up.")
             login(request, user)
-            return redirect("home")
+            return redirect("events-list")
         messages.warning(request, form.errors)
         return redirect("signup")
 
@@ -51,7 +51,7 @@ class Login(View):
             if auth_user is not None:
                 login(request, auth_user)
                 messages.success(request, "Welcome Back!")
-                return redirect('dashboard')
+                return redirect('events-list')
             messages.warning(request, "Wrong email/password combination. Please try again.")
             return redirect("login")
         messages.warning(request, form.errors)
@@ -110,6 +110,9 @@ def event_list (request):
     return render (request, 'events_list.html', context)
 
 def event_detail (request, event_slug):
+    if request.user.is_anonymous:
+        return redirect ('login')
+
     event = Event.objects.get(slug=event_slug)
 
     context = {

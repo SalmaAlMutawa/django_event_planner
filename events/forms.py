@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Event
+from .models import Event, Book
 
 class UserSignup(forms.ModelForm):
     class Meta:
@@ -26,3 +26,8 @@ class EventForm(forms.ModelForm):
 		'date': forms.DateInput(attrs={'type':'date'}),
 		'time':forms.TimeInput(attrs={'type':'time'}),
 		}
+
+class BookForm(forms.ModelForm):
+	class Meta:
+		model = Book
+		fields = '__all__'
