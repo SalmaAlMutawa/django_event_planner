@@ -9,8 +9,12 @@
           <form action="{% url 'login' %}" method="POST">
             {% csrf_token %}
             {{form|crispy}}
-            <input class = "btn btn-primary btn-xl rounded-pill mt-5" type="submit" value="Login">
+            <input button class="btn btn-lg btn-outline-secondary" type="submit" value="Login">
           </form>
+
+          <br>
+
+          <a href = "{% url 'google_login' %}"><button class="btn btn-lg btn-outline-secondary"><i class="fab fa-google secondary"></i>  Login with Google</button></a>
       </div>
     </div>
   </div>

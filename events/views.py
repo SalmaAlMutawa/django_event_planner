@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from .models import Event, Book
 import datetime
+import requests
 
 
 def home(request):
