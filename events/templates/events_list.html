@@ -26,7 +26,6 @@
 				</div>
 				<div class="card-body">
 					<h5 class="card-title">{{event.name}}</h5>
-					<h6 class="card-title">Event Organizer: {{event.organizer}} </h6>
 					<h6 class="card-title">Date: {{event.date}} </h6>
 					<h6 class="card-title"> Available Seats: {% if not event.seats_left %} 0 {% else %}{{event.seats_left}} {% endif %} </h6>
 					<a href="{% url 'event-detail' event.slug %}" class="btn btn-outline-info">Find More</a>

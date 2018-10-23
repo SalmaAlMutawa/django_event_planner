@@ -13,7 +13,7 @@
  					<h5 class="card-title">{{event.name}}</h5>
  					<h6 class="card-title">Event Location: {{event.location}} </h6>
  					<h6 class="card-title">Date: {{event.date}} </h6>
- 					<h6 class="card-title">Seats Available: {{event.seats_left}} </h6>
+ 					<h6 class="card-title">Available Seats: {% if not event.seats_left %} 0 {% else %}{{event.seats_left}}{% endif %} </h6>
          	<a href="{% url 'event-detail' event.slug %}" class="btn btn-outline-info">View</a>
       		<a href="{% url 'event-edit' event.slug %}" class="btn btn-outline-success">Edit</a>
          	<a href="{% url 'event-delete' event.slug %}" class="btn btn-outline-danger">Delete</a>
@@ -22,6 +22,37 @@
     </div>
 	{% endfor %}
  </div>
+ <br>
+ {% for event in booked_events %}
+	<div class="col-md-4">
+		<div class="card">
+  			<div class="card-header">Booked by you</div>
+			<div class="card-body">
+ 					<h5 class="card-title">{{event.event.name}}</h5>
+ 					<h6 class="card-title">Event Location: {{event.event.location}} </h6>
+ 					<h6 class="card-title">Date: {{event.event.date}} </h6>
+ 					<h6 class="card-title"> Booked Tickets: {{event.tickets}} </h6>
+         	<a href="{% url 'event-detail' event.event.slug %}" class="btn btn-outline-info">View</a>
+      		<a href="#" class="btn btn-outline-warning">Cancel Booking</a>
+		    </div>
+	   	</div>
+    </div>
+	{% endfor %}
+
+<br>
+{% for event in attended_events %}
+	<div class="col-md-4">
+		<div class="card">
+  			<div class="card-header">Attended by you</div>
+			<div class="card-body">
+ 					<h5 class="card-title">{{event.event.name}}</h5>
+ 					<h6 class="card-title">Event Location: {{event.event.location}} </h6>
+ 					<h6 class="card-title">Date: {{event.event.date}} </h6>
+         	<a href="{% url 'event-detail' event.event.slug %}" class="btn btn-outline-info">View</a>
+		    </div>
+	   	</div>
+    </div>
+	{% endfor %}
  <br>
  <a href="{% url 'create-event' %}" class="btn btn-lg btn-outline-secondary">Create Event</a>
 {%endblock%}

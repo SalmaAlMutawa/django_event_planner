@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse
 from .models import Event, Book
+import datetime
 
 
 def home(request):
@@ -69,10 +70,16 @@ def dashboard (request):
     if request.user.is_anonymous:
         return redirect ('login')
     user = request.user
+    today = datetime.datetime.now()
+    now = today.time()
     my_events = Event.objects.filter(organizer=user)
+    booked_events = Book.objects.filter(user=user, event__date__gte=today)
+    attended_events = Book.objects.filter(user=user, event__date__lte=today)
 
     context = {
-        "my_events" : my_events 
+        "my_events" : my_events, 
+        "booked_events" : booked_events,
+        "attended_events": attended_events,
     }
     return render (request, 'dashboard.html', context)
 
@@ -94,7 +101,11 @@ def create_event (request):
     return render (request, 'event-create.html', context)
 
 def event_list (request):
-    events = Event.objects.all()
+    today = datetime.datetime.now()
+    now = today.time()
+    events = Event.objects.filter(date__gte=today)
+    #time__gte=now
+    
     query = request.GET.get('q')
     if query:
         events = events.filter(
@@ -104,8 +115,10 @@ def event_list (request):
             Q (organizer__first_name__icontains = query)|
             Q (organizer__last_name__icontains = query)
             ).distinct()
+
     context = {
         "events" : events,
+    
     }
     return render (request, 'events_list.html', context)
 
@@ -155,8 +168,6 @@ def event_book(request, event_slug):
         form = BookForm(request.POST)
         if form.is_valid():
             book = form.save(commit = False)
-            print(book.tickets)
-            print(event.seats_left())
             if  (book.tickets <= event.seats_left()):
                 book.event = event
                 book.user = request.user
