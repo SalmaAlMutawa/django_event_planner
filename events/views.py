@@ -166,7 +166,6 @@ def event_delete(request, event_slug):
 
 def event_book(request, event_slug):
     event = Event.objects.get(slug=event_slug)
-    #user = request.organizer
 
     if request.method == "POST":
         form = BookForm(request.POST)
@@ -186,7 +185,7 @@ def event_book(request, event_slug):
                 )
 
                 return redirect ('events-list')
-            messages.success(request, "Not enough available seats, please try again.")           
+            messages.warning(request, "Not enough available seats, please try again.")           
     return redirect ("event-detail", event_slug=event.slug)
 
 

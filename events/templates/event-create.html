@@ -2,9 +2,15 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<header class="masthead">
+<div class="container" style='background-color:	rgba(255,255,255, 0.5)'>
+	<div class="container" style="padding: 55px">
 	<form action="{% url 'create-event' %}" method="POST">
 		{% csrf_token %}
 		{{form|crispy}}
-		<input type="submit" value="Create Event" class="btn btn-lg btn-outline-info">
+		<input type="submit" value="Create Event" class="btn btn-lg btn-outline-info float-right">
 	</form>
+</div>
+</div>
+</header>
 {% endblock content %}

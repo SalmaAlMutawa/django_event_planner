@@ -5,14 +5,14 @@
 {% block content %}
 <header class="masthead">
 	<div class="container">
-<h2 class="text-light" style="font-family:Georgia">Events Organized by You:</h2>
+<h2 class="text-light">Events Organized by You:</h2>
 <div class="row">
 	<br>
 	{% for event in my_events %}
 		<div class="col-md-4">
-			<div class="card my-2">
+			<div class="card my-2" style='background-color:	rgba(255,255,255, 0.75)'>
   			<div class="card-header">Organized by you</div>
-				<div class="card-body">
+				<div class="card-body text-center">
  					<h5 class="card-title">{{event.name}}</h5>
  					<h6 class="card-title">Event Location: {{event.location}} </h6>
  					<h6 class="card-title">Date: {{event.date}} </h6>
@@ -27,13 +27,13 @@
  </div>
 
  <br>
- <h2>Events Booked by You:</h2>
+ <h2 class="text-light">Events Booked by You:</h2>
 <div class="row">
  {% for event in booked_events %}
 	<div class="col-md-4">
-		<div class="card my-2">
+		<div class="card my-2" style='background-color:	rgba(255,255,255, 0.75)'>
   			<div class="card-header">Booked by you</div>
-			<div class="card-body">
+			<div class="card-body text-center">
  					<h5 class="card-title">{{event.event.name}}</h5>
  					<h6 class="card-title">Event Location: {{event.event.location}} </h6>
  					<h6 class="card-title">Date: {{event.event.date}} </h6>
@@ -48,13 +48,13 @@
 
 
 <br>
-<h2>Events Attended by You:</h2>
+<h2 class="text-light">Events Attended by You:</h2>
 <div class="row">
 {% for event in attended_events %}
 	<div class="col-md-4">
-		<div class="card my-2">
+		<div class="card my-2" style='background-color:	rgba(255,255,255, 0.75)'>
   			<div class="card-header">Attended by you</div>
-			<div class="card-body">
+			<div class="card-body text-center">
  					<h5 class="card-title">{{event.event.name}}</h5>
  					<h6 class="card-title">Event Location: {{event.event.location}} </h6>
  					<h6 class="card-title">Date: {{event.event.date}} </h6>

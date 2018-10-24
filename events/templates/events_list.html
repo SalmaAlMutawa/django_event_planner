@@ -11,7 +11,7 @@
 		<div class="input-group mb-3">
   		<input type="text" class="form-control" placeholder="Search Events" aria-describedby="basic-addon2" value = "{{request.GET.q}}" aria-label="Search" name = 'q'>
   	<div class="input-group-append">
-    <button class="btn btn-outline-success" id="basic-addon2" type="submit">Search</button>
+    <button class="btn btn-success" id="basic-addon2" type="submit">Search</button>
   </div>
 </div>
 	</form>
@@ -21,16 +21,16 @@
 </div>
 
 <br>
-<h2>Upcoming Events..</h2>
+<h2 class = "text-light">Upcoming Events..</h2>
 
 <div class="row">
 	{% for event in events %}
 		<div class="col-md-4">
-			<div class="card my-2">
-				<div class="card-header">
+			<div class="card my-2" style='background-color:	rgba(255,255,255, 0.75)'>
+				<div class="card-header" >
 					Upcoming Events
 				</div>
-				<div class="card-body">
+				<div class="card-body text-center">
 					<h5 class="card-title">{{event.name}}</h5>
 					<h6 class="card-title">Date: {{event.date}} </h6>
 					<h6 class="card-title"> Available Seats: {% if not event.seats_left %} 0 {% else %}{{event.seats_left}} {% endif %} </h6>

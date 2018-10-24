@@ -2,9 +2,16 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<header class="masthead">
+<div class="container" style='background-color:	rgba(255,255,255, 0.5)'>
+
+<div class="container" style="padding: 45px">
 	<form action="{% url 'event-edit' event.slug %}" method="POST">
 		{% csrf_token %}
 		{{form|crispy}}
-		<input type="submit" value="Save Changes" class="btn btn-outline-success">
+		<input type="submit" value="Save Changes" class="btn btn-outline-success float-right">
 	</form>
+	</div>
+</div>
+</header>
 {% endblock content %}

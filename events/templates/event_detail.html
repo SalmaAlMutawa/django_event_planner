@@ -4,8 +4,10 @@
 {%block title%}Event Detail{%endblock title%}
 
 {%block content%}
-
-	<div class="card text-center">
+<header class="masthead">
+<div class="container">
+	<div class="container">
+	<div class="card text-center" style='background-color:rgba(255,255,255, 0.75)'>
 	  <div class="card-header">
 	    Event Details
 	  </div>
@@ -26,7 +28,7 @@
 
 		<br>
 
-         	<table class="table table-hover my-3">
+         	<table class="table table-hover my-3" style='background-color: rgba(220,220,220, 0.6)'>
 				<thead>
 				    <tr>
 				      <th scope="col">First Name</th>
@@ -84,10 +86,12 @@
 	    {% endif %}
 
 	  </div>
-	  <div class="card-footer text-muted">
+	  <div class="card-footer">
 	    Available Seats: {% if not event.seats_left %} 0 {% else %}{{event.seats_left}} 
 	    {% endif %}
 	  </div>
 	</div>
-
+</div>
+</div>
+</header>
 {%endblock content%}
