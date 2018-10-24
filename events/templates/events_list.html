@@ -9,9 +9,9 @@
 	<div class="col-12 ">
 	<form action = "{% url 'events-list' %}" class="form my-2 my-lg-0" method = "GET">
 		<div class="input-group mb-3">
-  		<input type="text" class="form-control" placeholder="Search Events" aria-describedby="basic-addon2" value = "{{request.GET.q}}" aria-label="Search" name = 'q'>
+  		<input type="text-" class="form-control" placeholder="Search Events" aria-describedby="basic-addon2" value = "{{request.GET.q}}" aria-label="Search" name = 'q'>
   	<div class="input-group-append">
-    <button class="btn btn-success" id="basic-addon2" type="submit">Search</button>
+    <button class="btn btn-success" disabled id="basic-addon2" type="submit">Search</button>
   </div>
 </div>
 	</form>

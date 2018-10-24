@@ -179,7 +179,7 @@ def event_book(request, event_slug):
                 send_mail(
                     'Event Booked Successfully',
                     ("Welcome to #!\nYou have successfully booked %s ticket(s) for %s.\nIt will be hosted at %s on %s at %s.\nHope you enjoy the event!") %(book.tickets, event.name, event.location, event.date, event.time),
-                    's.almutawa96@hotmail.com',
+                    'bookeventskw@gmail.com',
                     [book.user.email,],
                     fail_silently = False,
                 )

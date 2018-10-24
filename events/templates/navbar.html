@@ -6,24 +6,37 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
-        {% if request.user.is_anonymous %}
+  {% if request.user.is_anonymous %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'login' %}">Log In</a>
         </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="#">Welcome {{request.user.first_name}}!</a>
-        </li>
+  {% else %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'dashboard' %}">My Dashboard</a>
         </li>
+         
+        <li class="nav-item dropdown">
+          <div class="dropdown">
+            <button class="nav-link" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true">
+              Welcome {{request.user.first_name}}!
+            </button>
+              <div class="dropdown-menu">
+                <a href="{% url 'logout' %}"><button class="dropdown-item" type="button">Log Out</button></a>
+                <a href= "#"><button class="dropdown-item" type="button">View Profile</button></a>
+                <a href = "#"><button class="dropdown-item" type="button">Edit Profile</button></a>
+              </div>
+          </div>
+        </li>
+        
+    {% comment %}
          <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
         </li>
-        {% endif %}
+    {% endcomment %}
+  {% endif %}
       </ul>
     </div>
   </div>
