@@ -105,8 +105,7 @@ def create_event (request):
 
 def event_list (request):
     today = datetime.datetime.now()
-    now = today.time()
-    events = Event.objects.filter(date__gte=today)
+    events = Event.objects.filter(date__gte=today.date()).exclude(date=today.date(), time__lt=today.time())
     #time__gte=now
     
     query = request.GET.get('q')
