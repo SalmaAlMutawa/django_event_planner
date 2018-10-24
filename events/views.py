@@ -8,6 +8,8 @@ from django.http import JsonResponse
 from .models import Event, Book
 import datetime
 import requests
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def home(request):
@@ -130,11 +132,13 @@ def event_detail (request, event_slug):
     event = Event.objects.get(slug=event_slug)
     organizer = event.organizer
     bookers = event.book_set.all()
+    form = BookForm()
 
     context = {
         "event" : event,
         "organizer" : organizer,
         "bookers" : bookers,
+        "form" : form,
     }
     return render (request, 'event_detail.html', context)
 
@@ -163,8 +167,8 @@ def event_delete(request, event_slug):
 
 def event_book(request, event_slug):
     event = Event.objects.get(slug=event_slug)
-   
-    form = BookForm()
+    #user = request.organizer
+
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
@@ -174,13 +178,17 @@ def event_book(request, event_slug):
                 book.user = request.user
                 book.save()
                 messages.success(request, "Successfully Booked an Event!")
+                send_mail(
+                    'Event Booked Successfully',
+                    ("Welcome to #!\nYou have successfully booked %s ticket(s) for %s.\nIt will be hosted at %s on %s at %s.\nHope you enjoy the event!") %(book.tickets, event.name, event.location, event.date, event.time),
+                    's.almutawa96@hotmail.com',
+                    [book.user.email,],
+                    fail_silently = False,
+                )
+
                 return redirect ('events-list')
             messages.success(request, "Not enough available seats, please try again.")           
-    context = {
-        "form" : form,
-        "event" : event,
-    }
-    return render (request, 'book_event.html', context)
+    return redirect ("event-detail", event_slug=event.slug)
 
 
 

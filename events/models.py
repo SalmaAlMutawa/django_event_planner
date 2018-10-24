@@ -14,7 +14,7 @@ class Event(models.Model):
 	time = models.TimeField()
 	seats = models.IntegerField(default=1)
 	slug = models.SlugField(blank=True)
-	image = models.ImageField(blank=True, null=True)
+
 
 	def __str__(self):
 		return self.name

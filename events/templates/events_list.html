@@ -3,24 +3,30 @@
 {%block title%}List of Events{%endblock title%}
 
 {%block content%}
-
+<header class="masthead">
+<div class="container">
 <div class="row">
-	<div class="col-12">
-	<form action = "{% url 'events-list' %}" class="form-inline my-2 my-lg-0" method = "GET">
-		<div>
-    		<input class="form-control mr-sm-2" type="text" placeholder="Search Events" value = "{{request.GET.q}}" aria-label="Search" name = 'q'>
-    		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    	<div>
+	<div class="col-12 ">
+	<form action = "{% url 'events-list' %}" class="form my-2 my-lg-0" method = "GET">
+		<div class="input-group mb-3">
+  		<input type="text" class="form-control" placeholder="Search Events" aria-describedby="basic-addon2" value = "{{request.GET.q}}" aria-label="Search" name = 'q'>
+  	<div class="input-group-append">
+    <button class="btn btn-outline-success" id="basic-addon2" type="submit">Search</button>
+  </div>
+</div>
 	</form>
 	</div>
+
+
 </div>
 
 <br>
+<h2>Upcoming Events..</h2>
 
 <div class="row">
 	{% for event in events %}
 		<div class="col-md-4">
-			<div class="card">
+			<div class="card my-2">
 				<div class="card-header">
 					Upcoming Events
 				</div>
@@ -34,7 +40,8 @@
 		</div>
 	{% endfor %}
 </div>
-
+</div>
+</header>
 
 
 
