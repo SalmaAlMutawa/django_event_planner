@@ -22,10 +22,10 @@
           <button style="background-color: transparent; border:0;"class = "nav-link" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true">
               Welcome {{request.user.first_name}}!
             </button>
-              <div class="dropdown-menu">
-                <a href="{% url 'logout' %}"><button class="dropdown-item" type="button">Log Out</button></a>
-                <a href= "{% url 'user-profile' %}"><button class="dropdown-item" type="button">View Profile</button></a>
-                <a href = "{% url 'edit-profile' %}"><button class="dropdown-item" type="button">Edit Profile</button></a>
+              <div class="dropdown-menu bg-dark">
+                <a href= "{% url 'user-profile' %}"><button class="text-light dropdown-item bg-dark" type="button">View Profile</button></a>
+                <a href = "{% url 'edit-profile' %}"><button class="text-light dropdown-item bg-dark" type="button">Edit Profile</button></a>
+                <a href="{% url 'logout' %}"><button class="text-light dropdown-item bg-dark" type="button">Log Out</button></a>
               </div>
           </div>
         </li>

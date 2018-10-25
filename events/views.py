@@ -213,18 +213,18 @@ def edit_profile(request):
 
 
 def change_password(request):
+    if request.user.is_anonymous:
+        return redirect('login')
     if request.method == 'POST':
-        if request.user.is_authenticated():
-            form = PasswordChangeForm(request.user, request.POST)
-            if form.is_valid():
-                user = form.save()
-                update_session_auth_hash(request, user)  
-                messages.success(request, 'Your password was successfully updated!')
-                return redirect('change_password')
-            else:
-                messages.warning(request, 'Oops, something went wrong!')
-    else:
-        form = PasswordChangeForm(request.user)
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('edit-profile')
+        else:
+            messages.warning(request, 'Oops, something went wrong!')
+    form = PasswordChangeForm(request.user)
 
     context={
         "form": form,

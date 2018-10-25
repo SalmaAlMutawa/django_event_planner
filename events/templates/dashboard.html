@@ -39,7 +39,8 @@
  					<h6 class="card-title">Date: {{event.event.date}} </h6>
  					<h6 class="card-title"> Booked Tickets: {{event.tickets}} </h6>
          	<a href="{% url 'event-detail' event.event.slug %}" class="btn btn-outline-info">View</a>
-      		<a href="#" class="btn btn-outline-warning"><button data-toggle="modal" data-target="#exampleModalCenter">Cancel Booking</button></a>
+
+      		<a href="#" class="btn btn-outline-warning">Cancel Booking</a>
 
         {% comment %}
         		<!-- Modal -->
