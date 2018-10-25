@@ -31,3 +31,13 @@ class BookForm(forms.ModelForm):
 	class Meta:
 		model = Book
 		fields = ['tickets',]
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', ]
+
+
+class CancelBookForm(forms.Form):
+		num_cancelled_tickets=forms.IntegerField(min_value = 0)

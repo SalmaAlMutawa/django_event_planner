@@ -127,7 +127,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'bookeventskw@gmail.com'
 EMAIL_HOST_PASSWORD = 'qcycftpaavrspwwy'
-
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIAL_AUTH_GOOGLE_SCOPE = ['email']
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

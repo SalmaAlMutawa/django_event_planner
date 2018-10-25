@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<header class="masthead">
+<div class="container" style='background-color:	rgba(255,255,255, 0.5)'>
+
+<div class="container" style="padding: 45px">
+	<form action="{% url 'edit-profile'%}" method="POST">
+		{% csrf_token %}
+		{{form|crispy}}
+		<a href = "{% url 'change-password' %}"><input type="submit" value="Change Password" class="btn btn-outline-success float-right">
+		<input type="submit" value="Save Changes" class="btn btn-outline-success float-right">
+	</form>
+	</div>
+</div>
+</header>
+{% endblock content %}

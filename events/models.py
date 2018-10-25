@@ -23,7 +23,7 @@ class Event(models.Model):
 		bookings = Book.objects.filter(event=self)
 		remaining = self.seats
 		for book in bookings:
-			remaining -=book.tickets
+			remaining = remaining - book.tickets 
 			if remaining == 0:
 				return False
 		return remaining
@@ -34,6 +34,10 @@ class Book(models.Model):
 	event = models.ForeignKey(Event, default = 1, on_delete = models.CASCADE)
 	tickets = models.IntegerField()
 
+# class CancelBooking(models.Model):
+# 	user = models.ForeignKey(User, default = 1, on_delete = models.CASCADE)
+# 	event = models.ForeignKey(Event, default = 1, on_delete = models.CASCADE)
+# 	tickets = models.IntegerField()
 
 def create_slug(instance, new_slug=None):
 	slug = slugify (instance.name)

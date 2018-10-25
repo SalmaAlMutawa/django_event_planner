@@ -19,5 +19,10 @@ urlpatterns = [
     path('edit/<slug:event_slug>/', views.event_edit, name='event-edit'),
     path('delete/<slug:event_slug>/', views.event_delete, name='event-delete'),
     path('book/<slug:event_slug>/', views.event_book, name='event-book'),
+    
+    path('view/profile/', views.view_profile, name='user-profile'),
+    path('edt/profile/', views.edit_profile, name='edit-profile'),
+    path('password/', views.change_password, name='change-password'),
+    #path('cancel/booking/<slug:event_slug>', views.cancel_booking, name='cancel-booking'),
 
 ]

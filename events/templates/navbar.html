@@ -17,16 +17,15 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'dashboard' %}">My Dashboard</a>
         </li>
-         
-        <li class="nav-item dropdown">
+        <li class="nav-item">
           <div class="dropdown">
-            <button class="nav-link" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true">
+          <button style="background-color: transparent; border:0;"class = "nav-link" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true">
               Welcome {{request.user.first_name}}!
             </button>
               <div class="dropdown-menu">
                 <a href="{% url 'logout' %}"><button class="dropdown-item" type="button">Log Out</button></a>
-                <a href= "#"><button class="dropdown-item" type="button">View Profile</button></a>
-                <a href = "#"><button class="dropdown-item" type="button">Edit Profile</button></a>
+                <a href= "{% url 'user-profile' %}"><button class="dropdown-item" type="button">View Profile</button></a>
+                <a href = "{% url 'edit-profile' %}"><button class="dropdown-item" type="button">Edit Profile</button></a>
               </div>
           </div>
         </li>

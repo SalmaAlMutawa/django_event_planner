@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.views import View
-from .forms import UserSignup, UserLogin, EventForm, BookForm
+from .forms import UserSignup, UserLogin, EventForm, BookForm, UserEditForm
 from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse
@@ -10,6 +10,7 @@ import datetime
 import requests
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 def home(request):
@@ -178,7 +179,7 @@ def event_book(request, event_slug):
                 messages.success(request, "Successfully Booked an Event!")
                 send_mail(
                     'Event Booked Successfully',
-                    ("Welcome to #!\nYou have successfully booked %s ticket(s) for %s.\nIt will be hosted at %s on %s at %s.\nHope you enjoy the event!") %(book.tickets, event.name, event.location, event.date, event.time),
+                    ("Welcome to #!\nYou have successfully booked %s ticket(s) for %s.\nIt will be hosted at %s on %s at %s.\n\nWe hope you enjoy the event!\n\nRegards,\nThe # team") %(book.tickets, event.name, event.location, event.date, event.time),
                     'bookeventskw@gmail.com',
                     [book.user.email,],
                     fail_silently = False,
@@ -187,6 +188,64 @@ def event_book(request, event_slug):
                 return redirect ('events-list')
             messages.warning(request, "Not enough available seats, please try again.")           
     return redirect ("event-detail", event_slug=event.slug)
+
+def view_profile (request):
+    user = request.user
+    context = {
+        "user": user,        
+    }
+    return render (request,'view_profile.html', context)
+
+def edit_profile(request):
+    user = request.user
+    form = UserEditForm(instance=user)
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Successfully edited your profile!")
+            return redirect ('user-profile')
+        print (form.errors)
+    context = {
+        'form' : form,
+        'user' : user,
+        }
+    return render (request, 'edit_profile.html', context)
+
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.warning(request, 'Oops, something went wrong!')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'accounts/change_password.html', {
+        'form': form
+    })
+
+# def cancel_booking(request, event_slug):
+
+#     event = Event.objects.get(slug=event_slug)
+#     #retrieve number of tickets from the form to be cancelled
+#     event.cancel_booking(#pass the number here)
+
+
+#     if request.method == "POST":
+#         form = CancelBookForm(request.POST)
+#         if form.is_valid():
+#             cancelled_tickets = form.save(commit = False)
+#             if (cancelbooking.tickets >= cancelled_tickets):
+#                 book.save()
+#                 messages.success(request, "Successfully cancelled your booking!")
+#                 return redirect ('dashboard')
+#             messages.warning(request, "Check number of tickets booked and try again.")           
+#     return redirect ("dashboard")
 
 
 
