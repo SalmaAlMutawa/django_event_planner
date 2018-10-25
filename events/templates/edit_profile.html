@@ -9,8 +9,8 @@
 	<form action="{% url 'edit-profile'%}" method="POST">
 		{% csrf_token %}
 		{{form|crispy}}
-		<a href = "{% url 'change-password' %}"><input type="submit" value="Change Password" class="btn btn-outline-success float-right">
 		<input type="submit" value="Save Changes" class="btn btn-outline-success float-right">
+		<a href = "{% url 'change-password' %}" class ="btn btn-outline-success float-right"> Change Password</a>
 	</form>
 	</div>
 </div>

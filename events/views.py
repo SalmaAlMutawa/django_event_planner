@@ -107,7 +107,6 @@ def create_event (request):
 def event_list (request):
     today = datetime.datetime.now()
     events = Event.objects.filter(date__gte=today.date()).exclude(date=today.date(), time__lt=today.time())
-    #time__gte=now
     
     query = request.GET.get('q')
     if query:
@@ -215,19 +214,22 @@ def edit_profile(request):
 
 def change_password(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  
-            messages.success(request, 'Your password was successfully updated!')
-            return redirect('change_password')
-        else:
-            messages.warning(request, 'Oops, something went wrong!')
+        if request.user.is_authenticated():
+            form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  
+                messages.success(request, 'Your password was successfully updated!')
+                return redirect('change_password')
+            else:
+                messages.warning(request, 'Oops, something went wrong!')
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, 'accounts/change_password.html', {
-        'form': form
-    })
+
+    context={
+        "form": form,
+    }
+    return render(request, 'change_password.html', context)
 
 # def cancel_booking(request, event_slug):
 

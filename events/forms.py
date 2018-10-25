@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Event, Book
+from django.contrib.auth.forms import PasswordChangeForm
 
 class UserSignup(forms.ModelForm):
     class Meta:

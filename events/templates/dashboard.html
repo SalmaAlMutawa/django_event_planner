@@ -41,6 +41,7 @@
          	<a href="{% url 'event-detail' event.event.slug %}" class="btn btn-outline-info">View</a>
       		<a href="#" class="btn btn-outline-warning"><button data-toggle="modal" data-target="#exampleModalCenter">Cancel Booking</button></a>
 
+        {% comment %}
         		<!-- Modal -->
 				<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog">
 				  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -54,8 +55,6 @@
 				      <form action="{% url 'cancel-booking' event.slug %}" method="POST">
 				      <div class="modal-body">
 						{% csrf_token %}
-						{{form|crispy}}
-						
 				      </div>
 				      <div class="modal-footer">
 				        <input type="submit" value="Book Event" class="btn btn-lg btn-outline-info"></input>
@@ -65,9 +64,7 @@
 				  </div>
 				</div>
 
-
-
-
+		{% endcomment %}
 
 
 

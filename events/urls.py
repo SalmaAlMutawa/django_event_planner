@@ -22,7 +22,7 @@ urlpatterns = [
     
     path('view/profile/', views.view_profile, name='user-profile'),
     path('edt/profile/', views.edit_profile, name='edit-profile'),
-    path('password/', views.change_password, name='change-password'),
+    path('change/password/', views.change_password, name='change-password'),
     #path('cancel/booking/<slug:event_slug>', views.cancel_booking, name='cancel-booking'),
 
 ]
