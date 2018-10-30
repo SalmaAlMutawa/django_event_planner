@@ -25,7 +25,7 @@ SECRET_KEY = '$^0io#_@u*v1fjcbods_x*5y^tqx=9b9ypx_zjecko_+19a3-1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['206.189.36.44', 'www.eventskw.com', 'eventskw.com']
+ALLOWED_HOSTS = ['127.0.0.1', '206.189.36.44', 'www.eventskw.com', 'eventskw.com']
 
 
 # Application definition

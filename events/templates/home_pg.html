@@ -5,14 +5,17 @@
   <div class="container text-center my-auto">
     <div class="row">
       <div class="col-1g-10 mx-auto">
+        <br>
+        <br>
+        <br>
         <h1 class="masthead-heading mb-0 text-center text-white">All the events,</h1>
         <h2 class="masthead-subheading mb-0 text-center text-white">You could ever want...</h2>
       </div>
       <div class="col-lg-10 mx-auto">
         {% if request.user.is_anonymous %}
-            <a href="{% url 'signup' %}" ><button class="btn btn-secondary btn-xl rounded-pill mt-5" disabled >Sign up to find events!</button></a>
+            <a href= "{% url 'signup' %}" ><button class="btn btn-secondary btn-xl rounded-pill mt-5"  >Sign up to find events!</button></a>
         {% else %}
-            <a href="{% url 'events-list' %}"><button class="btn btn-secondary btn-xl rounded-pill mt-5" disabled>Find events!</button></a>
+            <a href="{ % url 'events-list' % }"><button class="btn btn-secondary btn-xl rounded-pill mt-5" >Find events!</button></a>
          {% endif %}
         </div>
       </div>
@@ -25,9 +28,7 @@
   <br>
   <br>
   <br>
-  <br>
-  <br>
-  <br>
+  
 
 
   </header>
