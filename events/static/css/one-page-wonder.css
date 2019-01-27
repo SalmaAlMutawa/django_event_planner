@@ -56,8 +56,8 @@ header.masthead {
   background: url(../static/img/background.jpg);
   background-repeat: no-repeat;
   background-position: center center;
-  background-attachment: scroll;
-  background-size: cover;
+  background-attachment: relative;
+  background-size: contain;
 }
 
 header.masthead .masthead-content {
